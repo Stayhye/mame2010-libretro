@@ -651,7 +651,7 @@ static READ16_HANDLER( alpha_V_trigger_r )
 			break;
 	}
 
-	logerror("%04x:  Alpha read trigger at %04x\n", cpu_get_pc(space->cpu), offset);
+	logerror("%04x:  Alpha read trigger at %04x\n", (unsigned int)cpu_get_pc(space->cpu), (unsigned int)offset);
 
 	return 0; /* Values returned don't matter */
 }
@@ -3366,7 +3366,7 @@ static DRIVER_INIT( gangwarsb )
 static DRIVER_INIT( sbasebal )
 {
 	alpha68k_state *state = (alpha68k_state *)machine->driver_data;
-	uint16_t *rom = (uint16_t *)memory_region(machine, "maincpu");
+	uint16_t *rom = (uint16_t *)(void *)memory_region(machine, "maincpu");
 
 	/* Game hangs on divide by zero?!  Patch it */
 	rom[0xb672/2] = 0x4e71;
